@@ -22,5 +22,4 @@ select schema_name(tab.schema_id) as schema_name,
            and ep.name = 'MS_Description'
            and ep.minor_id = 0
            and ep.class_desc = 'OBJECT_OR_COLUMN'
-  order by schema_name,
-        table_name
+  order by num_rows
