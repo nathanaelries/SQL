@@ -1,0 +1,22 @@
+-- Update synname --
+use <dbname> --SQL PROJECT DATABASE NAME--
+
+--EXECUTE SCRIPT IN PROJECT DATABASE
+DECLARE @v_veniopcd NVARCHAR(2000) = '<>' -- PROVIDE <server>\<instance>.<dbname> --
+DECLARE @v_synonymname NVARCHAR(2000)
+DECLARE @v_query NVARCHAR(MAX)
+DECLARE @v_synonymtemplate NVARCHAR(MAX)
+SET @v_synonymtemplate =
+'
+IF  EXISTS (SELECT * FROM sys.synonyms WHERE name = N''{synname}'')
+BEGIN
+DROP SYNONYM [dbo].[{synname}]
+END
+CREATE SYNONYM [dbo].[{synname}] FOR {pcd_name}.[dbo].[{synname}]
+'
+
+SET @v_synonymname = '<>' -- PROVIDE table name on VenioPCD
+SET @v_query=@v_synonymtemplate
+SET @v_query = REPLACE(@v_query,'{synname}', @v_synonymname)
+SET @v_query = REPLACE(@v_query,'{pcd_name}', @v_veniopcd)
+EXEC sp_executesql @v_query
