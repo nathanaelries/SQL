@@ -52,7 +52,7 @@ ORDER BY
 
 ---
 
-## Documentation / Wiki Entry
+## Documentation
 
 ### Overview
 This query provides a **one-stop view** of all user tables in the current database, including:
