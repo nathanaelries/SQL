@@ -4,8 +4,8 @@
 /*
     ================================================================================
     Script  : ViewSynonymDetails
-    Author  : [Your Name]
-    Date    : [Date]
+    Author  : Nathanael Ries
+    Date    : March 31 2022
     Purpose : 
         Retrieves detailed information about each synonym in the current database, 
         including the server, database, schema, and object name that the synonym 
