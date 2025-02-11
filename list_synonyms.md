@@ -28,7 +28,7 @@ ORDER BY s.name;
 
 ---
 
-## Documentation / Wiki Entry
+## Documentation
 
 ### Purpose
 This query helps you quickly view **all synonyms** defined in the current database. It also breaks down each synonym’s base object name (the target) into **server**, **database**, **schema**, and **object** components using the built-in [`PARSENAME()`](https://learn.microsoft.com/en-us/sql/t-sql/functions/parsename-transact-sql) function. If any parts are missing (e.g., a synonym references an object in the same database without server or database qualifiers), the script uses `COALESCE` to **default** them to:
