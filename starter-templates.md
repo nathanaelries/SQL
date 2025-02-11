@@ -268,36 +268,6 @@ INSERT INTO #TempTable VALUES (1, 'Alpha'), (2, 'Beta');
 
 ---
 
-## 11. Cursor Template (Which You Already Have!)
-A pattern for row-by-row processing using a cursor:
-
-```sql
-DECLARE @idColumn INT;
-
-DECLARE idCursor CURSOR FAST_FORWARD READ_ONLY
-FOR
-    SELECT TableID FROM dbo.YourTable ORDER BY TableID;
-
-OPEN idCursor;
-
-FETCH NEXT FROM idCursor INTO @idColumn;
-
-WHILE @@FETCH_STATUS = 0
-BEGIN
-    -- Process @idColumn here
-
-    FETCH NEXT FROM idCursor INTO @idColumn;
-END;
-
-CLOSE idCursor;
-DEALLOCATE idCursor;
-```
-
-**When to document this?**  
-- For times when row-by-row processing is unavoidable (though always emphasize set-based solutions first).
-
----
-
 ## Honorable Mentions
 - **Backup and Restore Templates** (simple vs. full vs. differential, log backups, etc.)  
 - **Index Creation Templates** (covering how to create, rebuild, or reorganize indexes, online vs. offline, etc.)  
