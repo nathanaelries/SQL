@@ -16,38 +16,34 @@
 */
 
 SELECT 
-      sch.name                  AS SchemaName
-    , tbl.name                  AS TableName
-    , tbl.create_date           AS CreatedDate
-    , tbl.modify_date           AS LastModifiedDate
-    , COALESCE(rc.RowCount, 0)  AS RowCount
-    , ep.value                  AS Comments
+      sch.name                  AS [SchemaName]
+    , tbl.name                  AS [TableName]
+    , tbl.create_date           AS [CreatedDate]
+    , tbl.modify_date           AS [LastModifiedDate]
+    , COALESCE(rc.row_count, 0) AS [RowCount]
+    , ep.value                  AS [Comments]
 FROM sys.tables AS tbl
 INNER JOIN sys.schemas AS sch
     ON tbl.schema_id = sch.schema_id
-
--- Retrieve row counts from sys.partitions, using only heap (0) or clustered (1) indexes
 LEFT JOIN 
 (
     SELECT 
           p.object_id
-        , SUM(p.rows) AS RowCount
+        , SUM(p.[rows]) AS row_count
     FROM sys.partitions AS p
-    WHERE p.index_id IN (0,1)    -- 0 = Heap; 1 = Clustered index
+    WHERE p.index_id IN (0,1)
     GROUP BY p.object_id
 ) AS rc
     ON tbl.object_id = rc.object_id
-
--- Retrieve any extended property named 'MS_Description' for the table
 LEFT JOIN sys.extended_properties AS ep
     ON tbl.object_id = ep.major_id
     AND ep.minor_id  = 0
     AND ep.name      = 'MS_Description'
     AND ep.class_desc = 'OBJECT_OR_COLUMN'
-
 ORDER BY 
       sch.name
     , tbl.name;
+
 ```
 
 ---
