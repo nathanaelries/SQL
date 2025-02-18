@@ -1,3 +1,6 @@
+Below is a **“missing indexes”** script you can add to your toolkit. Identifying potentially missing indexes often provides **quick wins** when it comes to **SQL Server performance**—especially for heavy OLTP or mixed workloads. After all, a well-chosen index can drastically reduce I/O and CPU usage for frequent queries.
+> **Note**: Don’t blindly create every index this DMV suggests—review each recommendation for redundancy and potential overhead (e.g., slower writes, extra storage). But this is a **great** starting point to see where you might gain the most performance benefit quickly.
+---
 1. **Creates** (or drops and re-creates) the helper function `dbo.ufn_SafeIndexName`.  
 2. **Runs** the “Find Missing Indexes” query that uses the function.  
 
@@ -5,7 +8,7 @@ You can run this entire script at once in SSMS or Azure Data Studio, and it will
 
 ---
 
-## Single-Script Example
+## Script: Identify Missing Indexes and Generate Recommendations
 
 ```sql
 /*
